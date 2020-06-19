@@ -10,6 +10,7 @@ const DrinksScreen = props => {
   }, [props.filters]);
 
   const loadMore = () => {
+    console.log('loadMore');
     const pageIndex = props.drinks.pageIndex;
     const filters = props.filters.items;
     const selectedFilters = filters
@@ -17,14 +18,14 @@ const DrinksScreen = props => {
       .map(({strCategory}) => strCategory);
     const currentFilter = selectedFilters[pageIndex];
 
-    console.log(currentFilter);
-
+    console.log('selectedFilters', selectedFilters);
+    console.log('currentFilter', currentFilter);
     if (currentFilter) {
       props.fetchDrinks(currentFilter);
     }
   };
-  console.log('ITEMS', props);
-  const sections = props.drinks.items.map(i => ({
+
+  const sections = (props.drinks.items || []).map(i => ({
     title: i.category,
     items: i.drinks,
   }));
@@ -35,7 +36,7 @@ const DrinksScreen = props => {
         sections={sections}
         keyExtractor={(item, index) => item + index}
         renderItem={({item}) => {
-          console.log(item);
+          console.log('renderItem', item);
           return <Text>{item}</Text>;
         }}
         renderSectionHeader={({title}) => {

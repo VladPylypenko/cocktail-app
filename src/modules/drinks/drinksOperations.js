@@ -5,13 +5,12 @@ export const fetchDrinks = category => {
   return async dispatch => {
     try {
       dispatch(actions.fetchDrinks.start());
-      
       const response = await Drinks.getCurrentDrinks(category);
       const result = await response.json();
 
       //console.log('RESULT', result.drinks);
 
-      dispatch(actions.fetchDrinks.success({category, items: result.drinks}));
+      dispatch(actions.fetchDrinks.success({category, drinks: result.drinks}));
     } catch (error) {
       dispatch(actions.fetchDrinks.error({message: error.message}));
     }

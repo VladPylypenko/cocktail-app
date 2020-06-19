@@ -20,7 +20,7 @@ export default handleActions(
     }),
     [fetchDrinks.success]: (state, action) => ({
       ...state,
-      items: action.payload,
+      items: [...state.items, action.payload],
       pageIndex: state.pageIndex + 1,
       isLoading: false,
       isError: false,

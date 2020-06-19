@@ -24,7 +24,7 @@ const DrinksScreen = props => {
     }
   };
 
-  const sections = (props.drinks.items || []).map(i => ({
+  const sections = props.drinks.items.map(i => ({
     title: i.category,
     data: i.drinks,
   }));

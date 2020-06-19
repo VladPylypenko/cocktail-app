@@ -6,9 +6,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DrinksScreen = props => {
   useEffect(() => {
-    console.log('use layout');
-    props.fetchDrinks('Coctail');
-  }, [props]);
+    loadMore();
+  }, [props.filters]);
 
   const loadMore = () => {
     const pageIndex = props.drinks.pageIndex;
@@ -33,19 +32,6 @@ const DrinksScreen = props => {
   return (
     <View style={{flex: 1}}>
       <SectionList
-        // sections={DATA}
-        // renderSectionHeader={({section: {title}}) => <Text>{title}</Text>}
-        // //keyExtractor={item => item.idDrink}
-        // keyExtractor={item => item.title}
-        // //onEndReached={() => loadMore()}
-        // renderItem={({item}) => {
-        //   return (
-        //     <View style={{}}>
-        //       {/* <Image style={{}} source={item.strDrinkThumb} /> */}
-        //       <Text style={{}}>{item}</Text>
-        //     </View>
-        //   );
-        // }}
         sections={sections}
         keyExtractor={(item, index) => item + index}
         renderItem={({item}) => {

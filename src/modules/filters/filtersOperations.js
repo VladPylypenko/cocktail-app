@@ -10,14 +10,6 @@ export const fetchFilters = () => {
       dispatch(
         actions.getFilters.success(
           result.drinks.map(obj => ({...obj, isSelected: true})),
-            // .map(it => it.strCategory)
-            // .reduce(
-            //   (res, category) => ({
-            //     ...res,
-            //     [category]: true,
-            //   }),
-            //   {},
-            // ),
         ),
       );
     } catch (error) {

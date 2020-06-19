@@ -1,16 +1,17 @@
-import React, {useLayoutEffect, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, Image, SectionList} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchDrinks} from '../../modules/drinks/drinksOperations';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import s from './styles';
 
 const DrinksScreen = props => {
   useEffect(() => {
     loadMore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.filters]);
 
   const loadMore = () => {
-    console.log('loadMore');
     const pageIndex = props.drinks.pageIndex;
     const filters = props.filters.items;
     const selectedFilters = filters
@@ -18,8 +19,6 @@ const DrinksScreen = props => {
       .map(({strCategory}) => strCategory);
     const currentFilter = selectedFilters[pageIndex];
 
-    console.log('selectedFilters', selectedFilters);
-    console.log('currentFilter', currentFilter);
     if (currentFilter) {
       props.fetchDrinks(currentFilter);
     }
@@ -27,22 +26,25 @@ const DrinksScreen = props => {
 
   const sections = (props.drinks.items || []).map(i => ({
     title: i.category,
-    items: i.drinks,
+    data: i.drinks,
   }));
 
   return (
-    <View style={{flex: 1}}>
+    <View style={s.container}>
       <SectionList
         sections={sections}
         keyExtractor={(item, index) => item + index}
-        renderItem={({item}) => {
-          console.log('renderItem', item);
-          return <Text>{item}</Text>;
-        }}
-        renderSectionHeader={({title}) => {
-          console.log(title);
-          return <Text>{title}</Text>;
-        }}
+        renderItem={({item}) => (
+          <View style={s.listItem}>
+            <Image style={s.image} source={{uri: item.strDrinkThumb}} />
+            <Text key={item.idDrink} style={s.greyFont}>
+              {item.strDrink}
+            </Text>
+          </View>
+        )}
+        renderSectionHeader={({section: {title}}) => (
+          <Text style={[s.header, s.greyFont]}>{title}</Text>
+        )}
         onEndReached={() => loadMore()}
       />
     </View>
@@ -52,7 +54,7 @@ const DrinksScreen = props => {
 DrinksScreen.navigationOptions = ({navigation}) => ({
   headerRight: () => (
     <Icon
-      style={{marginRight: 20}}
+      style={s.icon}
       onPress={() => navigation.navigate('Filters')}
       name="filter"
       size={32}

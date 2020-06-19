@@ -34,6 +34,7 @@ export default handleActions(
     }),
     [clearDrinks]: state => ({
       ...state,
+      items: [],
       hasNoMore: false,
       pageIndex: 0,
       isLoading: false,

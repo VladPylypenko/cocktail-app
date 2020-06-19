@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, Alert} from 'react-native';
 import {updateFiltersSelected} from '../../modules/filters/filtersOperations';
 import {clearDrinks} from '../../modules/drinks/drinksOperations';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,7 +8,6 @@ import s from './styles';
 
 const FiltersScreen = props => {
   useEffect(() => {
-    console.log('use effect');
     setFilters(props.filters.items);
   }, [props.filters]);
 
@@ -26,6 +25,7 @@ const FiltersScreen = props => {
   return (
     <View style={s.container}>
       <FlatList
+        style={s.flatList}
         data={selectedFilters}
         renderItem={({item}) => {
           return (
@@ -45,6 +45,14 @@ const FiltersScreen = props => {
       <TouchableOpacity
         style={s.applyBtn}
         onPress={() => {
+          if (!selectedFilters.some(f => f.isSelected)) {
+            return Alert.alert(
+              'Select category',
+              'You do not select eny category!!!',
+              [{text: 'OK'}],
+              {cancelable: false},
+            );
+          }
           props.updateFiltersSelected(selectedFilters);
           props.clearDrinks();
           props.navigation.navigate('Drinks');

@@ -29,18 +29,10 @@ export default handleActions(
       isError: true,
       error: action.payload,
     }),
-    [updateFiltersSelected]: (state, action) => {
-      const items = {...state.items};
-      Object.entries(action.payload).forEach(([name, selected]) => {
-        if (items[name]) {
-          items[name] = selected;
-        }
-      });
-      return {
-        ...state,
-        items,
-      };
-    },
+    [updateFiltersSelected]: (state, action) => ({
+      ...state.items,
+      items: action.payload,
+    }),
   },
   INITIAL_STATE,
 );

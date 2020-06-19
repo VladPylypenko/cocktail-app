@@ -6,9 +6,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  flatList: {
+    marginTop: 30,
+  },
   applyBtn: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 110,
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 27,

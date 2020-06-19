@@ -42,6 +42,7 @@ const DrinksScreen = props => {
           console.log(title);
           return <Text>{title}</Text>;
         }}
+        onEndReached={() => loadMore()}
       />
     </View>
   );

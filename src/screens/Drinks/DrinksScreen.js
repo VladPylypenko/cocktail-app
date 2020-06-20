@@ -33,7 +33,7 @@ const DrinksScreen = props => {
     <View style={s.container}>
       <SectionList
         sections={sections}
-        keyExtractor={(item, index) => item + index}
+        keyExtractor={item => item.idDrink}
         renderItem={({item}) => (
           <View style={s.listItem}>
             <Image style={s.image} source={{uri: item.strDrinkThumb}} />
